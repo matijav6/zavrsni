@@ -1,30 +1,59 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Log in!{% endblock %}
-
+ {% block stylesheets %}
+     <link rel="stylesheet" href="{{ asset('/build/css/app.css') }}"/>
+     <link rel="stylesheet" href="{{ asset('/build/css/login.css') }}"/>
+ {% endblock %}
 {% block body %}
-<form method="post">
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100">
+                <div class="login100-form-title" style="background-image: url({{ asset('img/bg-01.jpg') }});">
+					<span class="login100-form-title-1">
+						Sign In
+					</span>
+                </div>
+                <form class="login100-form validate-form" method="post">
+                    {% if error %}
+                        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                    {% endif %}
+                    <div class="wrap-input100 validate-input m-b-26" data-validate="email is required">
+                        <span class="label-input100">email</span>
+                        <input class="input100" type="email" name="email" placeholder="Enter email">
+                        <span class="focus-input100"></span>
+                    </div>
 
-    {% if app.user %}
-        <div class="mb-3">
-            You are logged in as {{ app.user.username }}, <a href="{{ path('logout') }}">Logout</a>
+                    <div class="wrap-input100 validate-input m-b-18" data-validate="Password is required">
+                        <span class="label-input100">Password</span>
+                        <input class="input100" type="password" name="password" placeholder="Enter password">
+                        <span class="focus-input100"></span>
+                    </div>
+
+                    <div class="flex-sb-m w-full p-b-30">
+                        <div class="contact100-form-checkbox">
+                            <a href="{{ url('register') }}" class="txt1">
+                                Need an account?
+                            </a>
+                        </div>
+
+                        <div>
+                            <a href="#" class="txt1">
+                                Forgot Password?
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="container-login100-form-btn">
+                        <button class="login100-form-btn">
+                            Login
+                        </button>
+                    </div>
+                    <input type="hidden" name="_csrf_token"
+                           value="{{ csrf_token('authenticate') }}"
+                    >
+                </form>
+            </div>
         </div>
-    {% endif %}
-
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputEmail" class="sr-only">Email</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" placeholder="Email" required autofocus>
-    <label for="inputPassword" class="sr-only">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
-
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
-</form>
+    </div>
 {% endblock %}

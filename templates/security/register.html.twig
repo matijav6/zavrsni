@@ -1,36 +1,71 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Register{% endblock %}
-
+ {% block stylesheets %}
+     <link rel="stylesheet" href="{{ asset('/build/css/app.css') }}"/>
+     <link rel="stylesheet" href="{{ asset('/build/css/login.css') }}"/>
+ {% endblock %}
 {% block body %}
-    {{ form_start(registrationForm) }}
-    {{ form_errors(registrationForm)}}
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100">
+                <div class="login100-form-title" style="background-image: url({{ asset('img/bg-01.jpg') }});">
+					<span class="login100-form-title-1">
+						Sign In
+					</span>
+                </div>
+                {{ form_start(registrationForm, { 'attr': {'class': 'login100-form validate-form'} } ) }}
+                {{ form_errors(registrationForm)}}
+                <div class="wrap-input100 validate-input m-b-26" data-validate="First name is required">
+                    <span class="label-input100">First name</span>
+                    {{ form_widget(registrationForm.firstName, { 'attr': {'class': 'input-100', 'placeholder': 'Enter first name', 'style': 'width: inherit' } } ) }}
+                    <span class="focus-input100"></span>
+                </div>
 
-    {% if app.user %}
-        <div class="mb-3">
-            You are logged in as {{ app.user.username }}, <a href="{{ path('logout') }}">Logout</a>
+                <div class="wrap-input100 validate-input m-b-26" data-validate="Last name is required">
+                    <span class="label-input100">Last name</span>
+                    {{ form_widget(registrationForm.lastName, { 'attr': {'class': 'input-100', 'placeholder': 'Enter last name', 'style': 'width: inherit' } } ) }}
+                    <span class="focus-input100"></span>
+                </div>
+
+                <div class="wrap-input100 validate-input m-b-26" data-validate="First name is required">
+                    <span class="label-input100">email</span>
+                    {{ form_widget(registrationForm.email, { 'attr': {'class': 'input-100', 'placeholder': 'Enter email', 'style': 'width: inherit' } } ) }}
+                    <span class="focus-input100"></span>
+                </div>
+
+                <div class="wrap-input100 validate-input m-b-26" data-validate="Password is required">
+                    <span class="label-input100">Password</span>
+                    {{ form_widget(registrationForm.plainPassword, { 'attr': {'class': 'input-100', 'placeholder': 'Enter password', 'style': 'width: inherit' } } ) }}
+                    <span class="focus-input100"></span>
+                </div>
+
+                <div class="flex-sb-m w-full p-b-30">
+                    <div class="contact100-form-checkbox">
+                        <a href="{{ url('login') }}" class="txt1">
+                            Already have an account?
+                        </a>
+                    </div>
+
+                    <div>
+                        <a href="#" class="txt1">
+                            Forgot Password?
+                        </a>
+                    </div>
+                </div>
+
+                <div class="container-login100-form-btn">
+                    <button class="login100-form-btn">
+                        Login
+                    </button>
+                </div>
+                <input type="hidden" name="_csrf_token"
+                       value="{{ csrf_token('authenticate') }}"
+                >
+                {{ form_end(registrationForm) }}
+            </div>
         </div>
-    {% endif %}
+    </div>
 
-    <h1 class="h3 mb-3 font-weight-normal">Registration</h1>
-
-    <label for="firstName" class="sr-only">First Name</label>
-    {{ form_widget(registrationForm.firstName) }}
-
-    <label for="lastName" class="sr-only">Last Name</label>
-    {{ form_widget(registrationForm.lastName) }}
-
-    <label for="inputEmail" class="sr-only">Email</label>
-    {{ form_widget(registrationForm.email) }}
-
-    <label for="plainPassword" class="sr-only">Password</label>
-    {{ form_widget(registrationForm.plainPassword) }}
-
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
-    <button class="btn btn-lg btn-primary" type="submit">
-        Register
-    </button>
-    {{ form_end(registrationForm) }}
 {% endblock %}
+

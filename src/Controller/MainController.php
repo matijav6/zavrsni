@@ -5,17 +5,17 @@ namespace App\Controller;
 
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
 class MainController extends AbstractController
 {
     /**
-     * @return Response
+     * @return RedirectResponse
      * @Route(path="/", name="index")
      */
     public function getIndex()
     {
-        return $this->render('index.html.twig');
+        return $this->redirectToRoute('login');
     }
 }
