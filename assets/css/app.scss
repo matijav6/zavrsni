@@ -1,3 +1,21 @@
 body {
-    background-color: lightgray;
+    background-color: #f1f1f1 !important;
+}
+.main-container{
+    min-height: calc(100vh - 70px);
+    background-color: #fffbfb;
+    box-shadow: 0 0 10px 1px #00000029;
+    margin-bottom: 5px;
+    margin-top: 65px;
+    border-radius: 5px;
+}
+.card-footer{
+    font-size: 0.7em !important;
+}
+
+.far.fa-thumbs-up{
+    font-style: normal !important;
+}
+.likes-text{
+    font-size: 10px;
 }
