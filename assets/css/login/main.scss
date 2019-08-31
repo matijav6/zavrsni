@@ -29,7 +29,13 @@
 
 /*//////////////////////////////////////////////////////////////////
 [ RESTYLE TAG ]*/
-
+.main-container{
+    background-color: inherit !important;
+    box-shadow: none !important;
+    margin-bottom: 0 !important;
+    margin-top: 0 !important;
+    border-radius: 0 !important;
+}
 * {
     margin: 0px;
     padding: 0px;
