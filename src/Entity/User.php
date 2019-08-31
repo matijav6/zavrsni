@@ -223,4 +223,9 @@ class User implements UserInterface
 
         return $this;
     }
+
+    public function IsAdmin()
+    {
+        return in_array('ROLE_ADMIN', $this->getRoles());
+    }
 }
