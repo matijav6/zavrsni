@@ -57,10 +57,16 @@ class User implements UserInterface
      */
     private $likesDislikes;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Colleges", inversedBy="colleges")
+     */
+    private $colleges;
+
     public function __construct()
     {
         $this->posts = new ArrayCollection();
         $this->likesDislikes = new ArrayCollection();
+        $this->colleges = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -227,5 +233,31 @@ class User implements UserInterface
     public function IsAdmin()
     {
         return in_array('ROLE_ADMIN', $this->getRoles());
+    }
+
+    /**
+     * @return Collection|Colleges[]
+     */
+    public function getColleges(): Collection
+    {
+        return $this->colleges;
+    }
+
+    public function addCollege(Colleges $college): self
+    {
+        if (!$this->colleges->contains($college)) {
+            $this->colleges[] = $college;
+        }
+
+        return $this;
+    }
+
+    public function removeCollege(Colleges $college): self
+    {
+        if ($this->colleges->contains($college)) {
+            $this->colleges->removeElement($college);
+        }
+
+        return $this;
     }
 }

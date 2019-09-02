@@ -39,9 +39,15 @@ class Colleges
      */
     private $courses;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\User", mappedBy="colleges")
+     */
+    private $colleges;
+
     public function __construct()
     {
         $this->courses = new ArrayCollection();
+        $this->colleges = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -111,6 +117,34 @@ class Colleges
             if ($course->getCollege() === $this) {
                 $course->setCollege(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getColleges(): Collection
+    {
+        return $this->colleges;
+    }
+
+    public function addCollege(User $college): self
+    {
+        if (!$this->colleges->contains($college)) {
+            $this->colleges[] = $college;
+            $college->addCollege($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCollege(User $college): self
+    {
+        if ($this->colleges->contains($college)) {
+            $this->colleges->removeElement($college);
+            $college->removeCollege($this);
         }
 
         return $this;
