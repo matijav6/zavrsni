@@ -13,9 +13,18 @@ body {
     font-size: 0.7em !important;
 }
 
-.far.fa-thumbs-up{
+.far, .fas{
     font-style: normal !important;
 }
 .likes-text{
     font-size: 10px;
+}
+.add-new-btn{
+    display: grid !important;
+    grid-template-columns: auto auto;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    justify-items: center;
+    grid-gap: 10%;
 }

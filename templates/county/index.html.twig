@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Manage county{% endblock %}
+
+{% block body %}
+    <div class="container-fluid form-inline col-md-12 mb-3">
+        <h1 class="col-md-10">Manage county</h1>
+        <a href="{{ path('county_new') }}" class="col-md-2 btn btn-outline-secondary add-new-btn"><i class="fas fa-plus h4 p-0 m-0"></i> <p class="p-0 m-0">Create new</p></a>
+    </div>
+    <table class="table table-bordered table-condensed table-hover p-2">
+        <thead>
+        <tr>
+            <th class="text-center">Id</th>
+            <th class="text-center">Naziv</th>
+            <th class="text-center">Akcije</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for county in counties %}
+            <tr>
+                <td class="text-center">{{ county.id }}</td>
+                <td class="text-center">{{ county.name }}</td>
+                <td class="text-center">
+                    <a href="{{ path('county_show', {'id': county.id}) }}" class="btn btn-outline-secondary"><i
+                                class="far fa-eye"></i></a>
+                    <a href="{{ path('county_edit', {'id': county.id}) }}" class="btn btn-outline-secondary"> <i class="far fa-edit"></i></a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
