@@ -1,13 +1,31 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}Edit User{% endblock %}
+{% block navigation %}
+    {% include 'user/navigation.html.twig' %}
+{% endblock %}
+{% block title %}Ažuriranje{% endblock %}
 
 {% block body %}
-    <h1>Edit User</h1>
+    <h1>Ažuriranje {{ user.firstName }} {{ user.lastName }}</h1>
+    <table class="table table-bordered table-condensed table-hover p-2">
+        <tbody>
+        <tr>
+            <th>Ime</th>
+            <th>Prezime</th>
+            <th>email</th>
+            <th>Lozinka</th>
+            <th>Kolegiji</th>
+            <th class="text-center">Brisanje</th>
+        </tr>
+        <tr>
+            <td>
+                {{ include('userCrud/_form.html.twig', {'button_label': 'Ažuriraj'}) }}
+            </td>
+            <td>
+                {{ include('userCrud/_delete_form.html.twig') }}
+            </td>
+        </tr>
+        </tbody>
+    </table>
 
-    {{ include('userCrud/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('user_index') }}">back to list</a>
-
-    {{ include('userCrud/_delete_form.html.twig') }}
+    <a href="{{ path('user_index') }}" class="btn btn-outline-secondary"><i class="fas fa-chevron-left"></i></a>
 {% endblock %}

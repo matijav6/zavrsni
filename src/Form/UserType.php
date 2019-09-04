@@ -6,7 +6,7 @@ use App\Entity\Colleges;
 use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -22,7 +22,7 @@ class UserType extends AbstractType
 //                    'user' => 'ROLE_USER'
 //                ]
 //            ])
-            ->add('password')
+            ->add('password', PasswordType::class)
             ->add('firstName')
             ->add('lastName')
             ->add('colleges', EntityType::class, [

@@ -1,9 +1,17 @@
-{{ form_start(form) }}
+{{ form_start(form, {'attr': {'class': 'col-md-12'}}) }}
     {{ form_widget(form.firstName) }}
-{{ form_widget(form.lastName) }}
-{{ form_widget(form.email) }}
-
-{{ form_widget(form.password) }}
-{{ form_widget(form.colleges) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+</td>
+<td>
+    {{ form_widget(form.lastName) }}
+</td>
+<td>
+    {{ form_widget(form.email) }}
+</td>
+<td>
+    {{ form_widget(form.password) }}
+</td>
+<td>
+    {{ form_widget(form.colleges) }}
+</td>
+<button class="btn btn-outline-secondary pull-right">{{ button_label|default('Spremi') }}</button>
 {{ form_end(form) }}

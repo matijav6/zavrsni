@@ -1,43 +1,53 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}User index{% endblock %}
+{% block title %}Korisnici{% endblock %}
+
+{% block navigation %}
+    {% include 'user/navigation.html.twig' %}
+{% endblock %}
 
 {% block body %}
-    <h1>User index</h1>
-
-    <table class="table">
+    <div class="container-fluid form-inline col-md-12 mb-3">
+        <h1 class="col-md-10">Upravljanje korisnicima</h1>
+        <a href="{{ path('user_new') }}" class="col-md-2 btn btn-outline-secondary add-new-btn"><i
+                    class="fas fa-plus h4 p-0 m-0"></i>
+            <p class="p-0 m-0">Kreiraj novo</p></a>
+    </div>
+    <table class="table table-bordered table-condensed table-hover p-2">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>Email</th>
-                <th>Roles</th>
-                <th>Password</th>
-                <th>FirstName</th>
-                <th>LastName</th>
-                <th>actions</th>
-            </tr>
+        <tr>
+            <th class="text-center">ID</th>
+            <th class="text-center">Ime</th>
+            <th class="text-center">Prezime</th>
+            <th class="text-center">Email</th>
+            <th class="text-center">Kolegiji</th>
+            <th class="text-center">Akcije</th>
+        </tr>
         </thead>
         <tbody>
         {% for user in users %}
             <tr>
-                <td>{{ user.id }}</td>
-                <td>{{ user.email }}</td>
-                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-                <td>{{ user.password }}</td>
-                <td>{{ user.firstName }}</td>
-                <td>{{ user.lastName }}</td>
-                <td>
-                    <a href="{{ path('user_show', {'id': user.id}) }}">show</a>
-                    <a href="{{ path('user_edit', {'id': user.id}) }}">edit</a>
+                <td class="text-center">{{ user.id }}</td>
+                <td class="text-center">{{ user.firstName }}</td>
+                <td class="text-center">{{ user.lastName }}</td>
+                <td class="text-center">{{ user.email }}</td>
+                <td class="text-center">
+                    {% for college in user.colleges %}
+                        {{ college.name }} <br>
+                    {% endfor %}
+                </td>
+                <td class="text-center">
+                    <a href="{{ path('user_show', {'id': user.id}) }}" class="btn btn-outline-secondary"><i
+                                class="far fa-eye"></i></a>
+                    <a href="{{ path('user_edit', {'id': user.id}) }}" class="btn btn-outline-secondary"> <i
+                                class="far fa-edit"></i></a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="7">no records found</td>
+                <td colspan="6">Nema unosa</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('user_new') }}">Create new</a>
 {% endblock %}
