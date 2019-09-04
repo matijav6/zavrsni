@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\Colleges;
+use App\Entity\Courses;
 use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -25,8 +25,8 @@ class UserType extends AbstractType
             ->add('password', PasswordType::class)
             ->add('firstName')
             ->add('lastName')
-            ->add('colleges', EntityType::class, [
-                'class' => Colleges::class,
+            ->add('courses', EntityType::class, [
+                'class' => Courses::class,
                 'choice_label' => 'name',
                 'multiple' => true
             ]);

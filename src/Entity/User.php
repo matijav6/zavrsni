@@ -58,15 +58,15 @@ class User implements UserInterface
     private $likesDislikes;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Colleges", inversedBy="colleges")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Courses", inversedBy="user")
      */
-    private $colleges;
+    private $courses;
 
     public function __construct()
     {
         $this->posts = new ArrayCollection();
         $this->likesDislikes = new ArrayCollection();
-        $this->colleges = new ArrayCollection();
+        $this->courses = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -236,26 +236,26 @@ class User implements UserInterface
     }
 
     /**
-     * @return Collection|Colleges[]
+     * @return Collection|Courses[]
      */
-    public function getColleges(): Collection
+    public function getCourses(): Collection
     {
-        return $this->colleges;
+        return $this->courses;
     }
 
-    public function addCollege(Colleges $college): self
+    public function addCourse(Courses $college): self
     {
-        if (!$this->colleges->contains($college)) {
-            $this->colleges[] = $college;
+        if (!$this->courses->contains($college)) {
+            $this->courses[] = $college;
         }
 
         return $this;
     }
 
-    public function removeCollege(Colleges $college): self
+    public function removeCourse(Courses $college): self
     {
-        if ($this->colleges->contains($college)) {
-            $this->colleges->removeElement($college);
+        if ($this->courses->contains($college)) {
+            $this->courses->removeElement($college);
         }
 
         return $this;
