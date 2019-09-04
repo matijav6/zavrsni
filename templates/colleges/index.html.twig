@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Fakulteti{% endblock %}
+
+{% block navigation %}
+    {% include 'user/navigation.html.twig' %}
+{% endblock %}
+
+{% block body %}
+    <div class="container-fluid form-inline col-md-12 mb-3">
+        <h1 class="col-md-10">Upravljanje fakultetima</h1>
+        <a href="{{ path('colleges_new') }}" class="col-md-2 btn btn-outline-secondary add-new-btn"><i class="fas fa-plus h4 p-0 m-0"></i> <p class="p-0 m-0">Kreiraj novo</p></a>
+    </div>
+    <table class="table table-bordered table-condensed table-hover p-2">
+        <thead>
+        <tr>
+            <th class="text-center">ID</th>
+            <th class="text-center">Sinonim</th>
+            <th class="text-center">Naziv</th>
+            <th class="text-center">Županija</th>
+            <th class="text-center">Akcije</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for college in colleges %}
+            <tr>
+                <td class="text-center">{{ college.id }}</td>
+                <td class="text-center">{{ college.aka }}</td>
+                <td class="text-center">{{ college.name }}</td>
+                <td class="text-center">{{ college.county.name }}</td>
+                <td class="text-center">
+                    <a href="{{ path('colleges_show', {'id': college.id}) }}" class="btn btn-outline-secondary"><i
+                                class="far fa-eye"></i></a>
+                    <a href="{{ path('colleges_edit', {'id': college.id}) }}" class="btn btn-outline-secondary"> <i class="far fa-edit"></i></a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">Nema unosa</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

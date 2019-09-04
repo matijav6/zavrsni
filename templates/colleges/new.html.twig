@@ -2,21 +2,23 @@
 {% block navigation %}
     {% include 'user/navigation.html.twig' %}
 {% endblock %}
-{% block title %}Unos županije{% endblock %}
+{% block title %}Novi unos{% endblock %}
 
 {% block body %}
-    <h1>Unos županije</h1>
+    <h1>Novi unos</h1>
     <table class="table table-bordered table-condensed table-hover p-2">
         <tbody>
         <tr>
+            <th>Sinonim</th>
             <th>Naziv</th>
+            <th>Županija</th>
         </tr>
         <tr>
             <td>
-                {{ include('county/_form.html.twig') }}
+                {{ include('colleges/_form.html.twig') }}
             </td>
         </tr>
         </tbody>
     </table>
-    <a href="{{ path('county_index') }}" class="btn btn-outline-secondary"><i class="fas fa-chevron-left"></i></a>
+    <a href="{{ path('colleges_index') }}" class="btn btn-outline-secondary"><i class="fas fa-chevron-left"></i></a>
 {% endblock %}

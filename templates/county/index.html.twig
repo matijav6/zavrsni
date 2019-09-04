@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Manage county{% endblock %}
+{% block title %}Županije{% endblock %}
 
 {% block navigation %}
     {% include 'user/navigation.html.twig' %}
@@ -8,8 +8,8 @@
 
 {% block body %}
     <div class="container-fluid form-inline col-md-12 mb-3">
-        <h1 class="col-md-10">Manage county</h1>
-        <a href="{{ path('county_new') }}" class="col-md-2 btn btn-outline-secondary add-new-btn"><i class="fas fa-plus h4 p-0 m-0"></i> <p class="p-0 m-0">Create new</p></a>
+        <h1 class="col-md-10">Upravljanje županijama</h1>
+        <a href="{{ path('county_new') }}" class="col-md-2 btn btn-outline-secondary add-new-btn"><i class="fas fa-plus h4 p-0 m-0"></i> <p class="p-0 m-0">Kreiraj novo</p></a>
     </div>
     <table class="table table-bordered table-condensed table-hover p-2">
         <thead>
@@ -32,7 +32,7 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="3">no records found</td>
+                <td colspan="3">Nema unosa</td>
             </tr>
         {% endfor %}
         </tbody>
