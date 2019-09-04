@@ -21,7 +21,7 @@
         </tr>
         <tr>
             <th>Vrsta</th>
-            <td>{{ post.type }}</td>
+            <td>{{ post.type.name }}</td>
         </tr>
         <tr>
             <th>Korisnik</th>
@@ -34,7 +34,7 @@
         <tr>
             <th>Akcije</th>
             <td class="form-inline">
-                <a href="{{ path('courses_edit', {'id': post.id}) }}" class="btn btn-outline-secondary"> <i class="far fa-edit"></i></a>
+                <a href="{{ path('posts_edit', {'id': post.id}) }}" class="btn btn-outline-secondary"> <i class="far fa-edit"></i></a>
                 {{ include('posts/_delete_form.html.twig') }}
             </td>
         </tr>

@@ -1,0 +1,5 @@
+<form method="post" action="{{ path('post_types_delete', {'id': post_type.id}) }}" class="text-center" onsubmit="return confirm('Da li ste sigurni da želite obrisati?');" class="ml-1">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ post_type.id) }}">
+    <button class="btn btn-outline-danger"><i class="fas fa-trash"></i></button>
+</form>

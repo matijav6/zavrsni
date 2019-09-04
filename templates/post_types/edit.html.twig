@@ -5,26 +5,23 @@
 {% block title %}Ažuriranje{% endblock %}
 
 {% block body %}
-    <h1>Ažuriranje objave #{{ post.id }}</h1>
+    <h1>Ažuriranje {{ post_type.name }}</h1>
     <table class="table table-bordered table-condensed table-hover p-2">
         <tbody>
         <tr>
-            <th>Objava</th>
-            <th>Vrsta</th>
-            <th>Korisnik</th>
-            <th>Kolegij</th>
+            <th>Naziv</th>
             <th class="text-center">Brisanje</th>
         </tr>
         <tr>
             <td>
-                {{ include('posts/_form.html.twig', {'button_label': 'Ažuriraj'}) }}
+                {{ include('post_types/_form.html.twig', {'button_label': 'Ažuriraj'}) }}
             </td>
             <td>
-                {{ include('posts/_delete_form.html.twig') }}
+                {{ include('post_types/_delete_form.html.twig') }}
             </td>
         </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('posts_index') }}" class="btn btn-outline-secondary"><i class="fas fa-chevron-left"></i></a>
+    <a href="{{ path('post_types_index') }}" class="btn btn-outline-secondary"><i class="fas fa-chevron-left"></i></a>
 {% endblock %}

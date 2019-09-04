@@ -1,5 +1,5 @@
-<form method="post" action="{{ path('posts_edit', {'id': posts.id}) }}" class="text-center" onsubmit="return confirm('Da li ste sigurni da želite obrisati?');" class="ml-1">
+<form method="post" action="{{ path('posts_delete', {'id': post.id}) }}" class="text-center" onsubmit="return confirm('Da li ste sigurni da želite obrisati?');" class="ml-1">
     <input type="hidden" name="_method" value="DELETE">
-    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ posts.id) }}">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ post.id) }}">
     <button class="btn btn-outline-danger"><i class="fas fa-trash"></i></button>
 </form>

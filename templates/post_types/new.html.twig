@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+{% block navigation %}
+    {% include 'user/navigation.html.twig' %}
+{% endblock %}
+{% block title %}Novi unos{% endblock %}
+
+{% block body %}
+    <h1>Novi unos</h1>
+    <table class="table table-bordered table-condensed table-hover p-2">
+        <tbody>
+        <tr>
+            <th>Naziv</th>
+        </tr>
+        <tr>
+            <td>
+                {{ include('post_types/_form.html.twig') }}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a href="{{ path('post_types_index') }}" class="btn btn-outline-secondary"><i class="fas fa-chevron-left"></i></a>
+{% endblock %}
