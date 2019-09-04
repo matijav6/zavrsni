@@ -1,0 +1,14 @@
+{{ form_start(form, {'attr': {'class': 'col-md-12'}}) }}
+{{ form_widget(form.data) }}
+</td>
+<td>
+    {{ form_widget(form.type) }}
+</td>
+<td>
+    {{ form_widget(form.user) }}
+</td>
+<td>
+    {{ form_widget(form.course) }}
+</td>
+<button class="btn btn-outline-secondary pull-right">{{ button_label|default('Spremi') }}</button>
+{{ form_end(form) }}

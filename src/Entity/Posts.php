@@ -39,6 +39,11 @@ class Posts
      */
     private $likesDislikes;
 
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $data;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -93,6 +98,18 @@ class Posts
         if ($this !== $likesDislikes->getPost()) {
             $likesDislikes->setPost($this);
         }
+
+        return $this;
+    }
+
+    public function getData(): ?string
+    {
+        return $this->data;
+    }
+
+    public function setData(string $data): self
+    {
+        $this->data = $data;
 
         return $this;
     }
