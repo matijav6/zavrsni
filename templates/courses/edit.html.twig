@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+{% block navigation %}
+    {% include 'user/navigation.html.twig' %}
+{% endblock %}
+{% block title %}Ažuriranje{% endblock %}
+
+{% block body %}
+    <h1>Ažuriranje {{ course.name }}</h1>
+    <table class="table table-bordered table-condensed table-hover p-2">
+        <tbody>
+        <tr>
+            <th>Naziv</th>
+            <th>Sinonim</th>
+            <th>Fakultet</th>
+            <th class="text-center">Brisanje</th>
+        </tr>
+        <tr>
+            <td>
+                {{ include('courses/_form.html.twig', {'button_label': 'Ažuriraj'}) }}
+            </td>
+            <td>
+                {{ include('courses/_delete_form.html.twig') }}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('courses_index') }}" class="btn btn-outline-secondary"><i class="fas fa-chevron-left"></i></a>
+{% endblock %}
