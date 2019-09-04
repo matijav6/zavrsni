@@ -2,6 +2,10 @@
 
 {% block title %}Manage county{% endblock %}
 
+{% block navigation %}
+    {% include 'user/navigation.html.twig' %}
+{% endblock %}
+
 {% block body %}
     <div class="container-fluid form-inline col-md-12 mb-3">
         <h1 class="col-md-10">Manage county</h1>
@@ -10,7 +14,7 @@
     <table class="table table-bordered table-condensed table-hover p-2">
         <thead>
         <tr>
-            <th class="text-center">Id</th>
+            <th class="text-center">ID</th>
             <th class="text-center">Naziv</th>
             <th class="text-center">Akcije</th>
         </tr>
