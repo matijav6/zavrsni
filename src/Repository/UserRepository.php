@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Courses;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
@@ -17,5 +18,26 @@ class UserRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, User::class);
+    }
+
+    public function saveUser(User $user)
+    {
+        $this->getEntityManager()->persist($user);
+        $this->getEntityManager()->flush();;
+        return $user;
+    }
+
+    public function getRestCourses($user)
+    {
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+
+        $qb->select('courses.id, courses.name')
+            ->from(Courses::class, 'courses');
+
+        $query = $qb->getQuery();
+        $results = $query->getResult();
+
+        return $results;
     }
 }

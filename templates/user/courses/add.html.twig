@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+{% block navigation %}
+    {% include 'user/navigation.html.twig' %}
+{% endblock %}
+{% block title %}Novi unos{% endblock %}
+
+{% block body %}
+    <h1>Novi unos</h1>
+    <form action="{{ url('user.courses.save') }}">
+        <table class="table table-bordered table-condensed table-hover p-2">
+            <tbody>
+            <tr>
+                <th class="text-center">Kolegij</th>
+                <th class="text-center">Akcije</th>
+            </tr>
+            <tr>
+                <td>
+                    <select class="form-control col-md-7" name="course_id" id="exampleFormControlSelect1">
+                        {% for course in courses %}
+                            <option value="{{ course.id }}">{{ course.name }}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+                <td class="text-center">
+                    <button type="submit" class="btn btn-outline-secondary">Spremi</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+    <a href="{{ path('colleges_index') }}" class="btn btn-outline-secondary"><i class="fas fa-chevron-left"></i></a>
+{% endblock %}
