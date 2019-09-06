@@ -44,6 +44,11 @@ class Posts
      */
     private $data;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $dateUpdated;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -110,6 +115,18 @@ class Posts
     public function setData(string $data): self
     {
         $this->data = $data;
+
+        return $this;
+    }
+
+    public function getDateUpdated(): ?\DateTimeInterface
+    {
+        return $this->dateUpdated;
+    }
+
+    public function setDateUpdated(\DateTimeInterface $dateUpdated): self
+    {
+        $this->dateUpdated = $dateUpdated;
 
         return $this;
     }

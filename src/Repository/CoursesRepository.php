@@ -22,16 +22,6 @@ class CoursesRepository extends ServiceEntityRepository
 
     public function getRestCourses($user)
     {
-//        $em = $this->getEntityManager();
-//        $qb = $em->createQueryBuilder();
-//
-//        $qb->select('courses.id, courses.name')
-//            ->from(Courses::class, 'courses')
-//            ->where($qb->expr()->isNull('courses.user'));
-//
-//        $query = $qb->getQuery();
-//        $results = $query->getOneOrNullResult();
-
         $conn = $this->getEntityManager()
             ->getConnection();
         $sql = "SELECT courses.id, courses.name from courses left outer join user_courses uc on courses.id = uc.courses_id where uc.user_id is null or uc.user_id <> 11;";
