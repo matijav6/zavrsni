@@ -26,18 +26,4 @@ class UserRepository extends ServiceEntityRepository
         $this->getEntityManager()->flush();;
         return $user;
     }
-
-    public function getRestCourses($user)
-    {
-        $em = $this->getEntityManager();
-        $qb = $em->createQueryBuilder();
-
-        $qb->select('courses.id, courses.name')
-            ->from(Courses::class, 'courses');
-
-        $query = $qb->getQuery();
-        $results = $query->getResult();
-
-        return $results;
-    }
 }

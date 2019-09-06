@@ -51,7 +51,7 @@ class UserController extends AbstractController
      */
     public function addCourse(Request $request)
     {
-        $courses = $this->getDoctrine()->getRepository(User::class)->getRestCourses($this->getUser());
+        $courses = $this->getDoctrine()->getRepository(Courses::class)->getRestCourses($this->getUser());
 
         return $this->render('user/courses/add.html.twig', [
             'courses' => $courses
@@ -85,20 +85,18 @@ class UserController extends AbstractController
      * @param Request $request
      * @param Courses $course
      * @return RedirectResponse
-     * @Route(path="/course/delete/{id}", name="user.course.delete", methods={"DELETE"})
+     * @Route(path="/course/delete/{id}", name="user.course.delete")
      */
     public function deleteCourse(Request $request, Courses $course)
     {
-        if ($this->isCsrfTokenValid('delete' . $course->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            /**
-             * @var User $user
-             */
-            $user = $this->getUser();
-            $user->removeCourse($course);
-            $entityManager->persist($user);
-            $entityManager->flush();
-        }
+        $entityManager = $this->getDoctrine()->getManager();
+        /**
+         * @var User $user
+         */
+        $user = $this->getUser();
+        $user->removeCourse($course);
+        $entityManager->persist($user);
+        $entityManager->flush();
 
         return $this->redirectToRoute('user.courses');
     }
