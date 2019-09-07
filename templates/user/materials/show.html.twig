@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+{% block navigation %}
+    {% include 'user/navigation.html.twig' %}
+{% endblock %}
+{% block title %}Objave{% endblock %}
+
+{% block body %}
+    <div class="container-fluid form-inline mb-3">
+        <h1>Objava  {{ post.id }}</h1>
+    </div>
+
+    <table class="table table-bordered table-condensed table-hover p-2">
+        <tbody>
+        <tr>
+            <th>ID</th>
+            <td>{{ post.id }}</td>
+        </tr>
+        <tr>
+            <th>Objava</th>
+            <td>{{ post.data }}</td>
+        </tr>
+        <tr>
+            <th>Vrsta</th>
+            <td>{{ post.type.name }}</td>
+        </tr>
+        <tr>
+            <th>Korisnik</th>
+            <td>{{ post.user.firstName }} {{ post.user.lastName }}</td>
+        </tr>
+        <tr>
+            <th>Kolegij</th>
+            <td>{{ post.course.name }}</td>
+        </tr>
+        <tr>
+            <th>Akcije</th>
+            <td class="form-inline">
+                <a href="{{ path('materials_edit', {'id': post.id}) }}" class="btn btn-outline-secondary"> <i class="far fa-edit"></i></a>
+                {{ include('user/materials/_delete_form.html.twig') }}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('materials_index') }}" class="btn btn-outline-secondary"><i class="fas fa-chevron-left"></i></a>
+
+{% endblock %}
