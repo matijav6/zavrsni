@@ -4,9 +4,10 @@ namespace App\Controller;
 
 use App\Entity\Posts;
 use App\Entity\PostTypes;
-use App\Form\UserPublishType;
+use App\Form\UserMaterialsPublishType;
 use App\Repository\PostsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -44,7 +45,7 @@ class UserMaterialsController extends AbstractController
     public function new(Request $request): Response
     {
         $post = new Posts();
-        $form = $this->createForm(UserPublishType::class, $post);
+        $form = $this->createForm(UserMaterialsPublishType::class, $post);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -53,16 +54,41 @@ class UserMaterialsController extends AbstractController
                 'name' => 'Materijali'
             ]);
             $date = new \DateTime();
-            $entityManager->persist($post);
             $post->setUser($this->getUser());
             $post->setType($type);
             $post->setDateUpdated($date);
-            $entityManager->flush();
 
-            return $this->redirectToRoute('materials_index');
+            $fileData = $form['data']->getData();
+
+            // this condition is needed because the 'brochure' field is not required
+            // so the PDF file must be processed only when a file is uploaded
+            if ($fileData) {
+                $originalFilename = pathinfo($fileData->getClientOriginalName(), PATHINFO_FILENAME);
+                // this is needed to safely include the file name as part of the URL
+                $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $fileData->guessExtension();
+
+                // Move the file to the directory where brochures are stored
+                try {
+                    $fileData->move(
+                        $this->getParameter('materials_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+
+                // updates the 'brochureFilename' property to store the PDF file name
+                // instead of its contents
+                $post->setData($newFilename);
+
+                $entityManager->persist($post);
+                $entityManager->flush();
+
+                return $this->redirectToRoute('materials_index');
+            }
         }
-
-        return $this->render('user/instructions/new.html.twig', [
+        return $this->render('user/materials/new.html.twig', [
             'post' => $post,
             'form' => $form->createView(),
         ]);
@@ -88,7 +114,7 @@ class UserMaterialsController extends AbstractController
      */
     public function edit(Request $request, Posts $post): Response
     {
-        $form = $this->createForm(UserPublishType::class, $post);
+        $form = $this->createForm(UserMaterialsPublishType::class, $post);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

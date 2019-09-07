@@ -22,7 +22,9 @@
         <tbody>
         {% for post in posts %}
             <tr>
-                <td class="text-center">{{ post.data }}</td>
+                <td class="text-center">
+                    <a href="{{ asset('uploads/materials/' ~ post.data) }}">{{ post.data }}</a>
+                </td>
                 <td class="text-center">{{ post.course.name }}</td>
                 <td class="text-center">
                     <a href="{{ path('materials_show', {'id': post.id}) }}" class="btn btn-outline-secondary"><i
