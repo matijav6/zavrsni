@@ -9,7 +9,7 @@
 {% block body %}
     <div class="container-fluid form-inline col-md-12 mb-3">
         <h1 class="col-md-10">Upravljanje objavama</h1>
-        <a href="{{ path('news_new') }}" class="col-md-2 btn btn-outline-secondary add-new-btn"><i class="fas fa-plus h4 p-0 m-0"></i> <p class="p-0 m-0">Kreiraj novo</p></a>
+        <a href="{{ path('instructions_new') }}" class="col-md-2 btn btn-outline-secondary add-new-btn"><i class="fas fa-plus h4 p-0 m-0"></i> <p class="p-0 m-0">Kreiraj novo</p></a>
     </div>
     <table class="table table-bordered table-condensed table-hover p-2">
         <thead>
@@ -25,9 +25,9 @@
                 <td class="text-center">{{ post.data }}</td>
                 <td class="text-center">{{ post.course.name }}</td>
                 <td class="text-center">
-                    <a href="{{ path('news_show', {'id': post.id}) }}" class="btn btn-outline-secondary"><i
+                    <a href="{{ path('instructions_show', {'id': post.id}) }}" class="btn btn-outline-secondary"><i
                                 class="far fa-eye"></i></a>
-                    <a href="{{ path('news_edit', {'id': post.id}) }}" class="btn btn-outline-secondary"> <i class="far fa-edit"></i></a>
+                    <a href="{{ path('instructions_edit', {'id': post.id}) }}" class="btn btn-outline-secondary"> <i class="far fa-edit"></i></a>
                 </td>
             </tr>
         {% else %}

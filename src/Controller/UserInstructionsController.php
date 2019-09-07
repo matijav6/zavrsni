@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Posts;
 use App\Entity\PostTypes;
-use App\Form\PostsType;
 use App\Form\UserPublishType;
 use App\Repository\PostsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -13,26 +12,25 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/user/news")
+ * @Route("/user/instructions")
  */
-class UserNewsController extends AbstractController
+class UserInstructionsController extends AbstractController
 {
     /**
      * @param PostsRepository $postsRepository
      * @return Response
-     * @Route("/", name="news_index", methods={"GET"})
+     * @Route("/", name="instructions_index", methods={"GET"})
      */
     public function index(PostsRepository $postsRepository): Response
     {
         $type = $this->getDoctrine()->getRepository(PostTypes::class)->findOneBy([
-            'name' => 'Novosti'
+            'name' => 'Instrukcije'
         ]);
-
         $posts = $postsRepository->findBy([
             'user' => $this->getUser(),
             'type' => $type
         ]);
-        return $this->render('user/news/index.html.twig', [
+        return $this->render('user/instructions/index.html.twig', [
             'posts' => $posts
         ]);
     }
@@ -40,7 +38,7 @@ class UserNewsController extends AbstractController
     /**
      * @param Request $request
      * @return Response
-     * @Route("/new", name="news_new", methods={"GET","POST"})
+     * @Route("/new", name="instructions_new", methods={"GET","POST"})
      * @throws \Exception
      */
     public function new(Request $request): Response
@@ -52,7 +50,7 @@ class UserNewsController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $type = $this->getDoctrine()->getRepository(PostTypes::class)->findOneBy([
-                'name' => 'Novosti'
+                'name' => 'Instrukcije'
             ]);
             $date = new \DateTime();
             $entityManager->persist($post);
@@ -61,10 +59,10 @@ class UserNewsController extends AbstractController
             $post->setDateUpdated($date);
             $entityManager->flush();
 
-            return $this->redirectToRoute('news_index');
+            return $this->redirectToRoute('instructions_index');
         }
 
-        return $this->render('user/news/new.html.twig', [
+        return $this->render('user/instructions/new.html.twig', [
             'post' => $post,
             'form' => $form->createView(),
         ]);
@@ -73,11 +71,11 @@ class UserNewsController extends AbstractController
     /**
      * @param Posts $post
      * @return Response
-     * @Route("/{id}", name="news_show", methods={"GET"})
+     * @Route("/{id}", name="instructions_show", methods={"GET"})
      */
     public function show(Posts $post): Response
     {
-        return $this->render('user/news/show.html.twig', [
+        return $this->render('user/instructions/show.html.twig', [
             'post' => $post,
         ]);
     }
@@ -86,7 +84,7 @@ class UserNewsController extends AbstractController
      * @param Request $request
      * @param Posts $post
      * @return Response
-     * @Route("/{id}/edit", name="news_edit", methods={"GET","POST"})
+     * @Route("/{id}/edit", name="instructions_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Posts $post): Response
     {
@@ -96,10 +94,10 @@ class UserNewsController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('news_index');
+            return $this->redirectToRoute('instructions_index');
         }
 
-        return $this->render('user/news/edit.html.twig', [
+        return $this->render('user/instructions/edit.html.twig', [
             'post' => $post,
             'form' => $form->createView(),
         ]);
@@ -109,7 +107,7 @@ class UserNewsController extends AbstractController
      * @param Request $request
      * @param Posts $post
      * @return Response
-     * @Route("/{id}", name="news_delete", methods={"DELETE"})
+     * @Route("/{id}", name="instructions_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Posts $post): Response
     {
@@ -119,6 +117,6 @@ class UserNewsController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('news_index');
+        return $this->redirectToRoute('instructions_index');
     }
 }
