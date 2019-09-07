@@ -1,11 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Welcome{% endblock %}
+{% block title %}Novosti{% endblock %}
 {% block navigation %}
     {% include 'user/navigation.html.twig' %}
 {% endblock %}
 {% block body %}
-    {% set vars = {'header': 'bar', 'title': 'adasd', 'text': 'aaaa', 'user': 'Matija Vuk', 'date': '30.08.2019. 14:22', 'post_id': '111', 'likes': 12, 'dislikes': 13} %}
-    {% include 'user/card.html.twig' with vars %}
-    {% include 'user/card.html.twig' with vars %}
+    {% for post in posts %}
+        {% set vars = {'header': post.course.aka, 'title': post.course.name, 'text': post.data, 'user': post.user.firstName ~ post.user.lastName, 'date': post.dateUpdated|date('d.m.Y'), 'post_id': post.id, 'likes': post.likesDislikes.likes|default(0), 'dislikes': post.likesDislikes.dislikes|default(0), 'file': file} %}
+        {% include 'user/card.html.twig' with vars %}
+    {% endfor %}
 {% endblock %}

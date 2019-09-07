@@ -3,18 +3,22 @@
         <div class="card-header">{{ header }}</div>
         <div class="card-body">
             <h5 class="card-title">{{ title }}</h5>
-            <p class="card-text">{{ text }}</p>
+            {% if file %}
+                <a href="{{ asset('uploads/materials/' ~ text) }}">{{ text }}</a>
+            {% else %}
+                <p class="card-text">{{ text }}</p>
+            {% endif %}
         </div>
         <div class="form-inline border-dark col-md-12 mb-3">
             <div class="card-footer bg-transparent col-md-9">Objavio/la {{ user }} @ {{ date }}</div>
             <div class="form-inline col-md-3">
                 <button class="btn col-md-6 btn-outline-success">
                     <i class="far fa-thumbs-up"></i>
-                    <p class="m-0 p-0 likes-text" data-post_id="{{ post_id }}">{{ likes }} usefull</p>
+                    <p class="m-0 p-0 likes-text" data-post_id="{{ post_id }}">{{ likes }} korisno</p>
                 </button>
                 <button class="btn col-md-6 btn-outline-danger">
                     <i class="far fa-thumbs-down"></i>
-                    <p class="m-0 p-0 likes-text" data-post_id="{{ post_id }}">{{ dislikes }} not usefull</p>
+                    <p class="m-0 p-0 likes-text" data-post_id="{{ post_id }}">{{ dislikes }} nije korisno</p>
                 </button>
             </div>
         </div>
