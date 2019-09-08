@@ -19,4 +19,11 @@ class PostsRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Posts::class);
     }
+
+    public function savePost(Posts $posts)
+    {
+        $this->getEntityManager()->persist($posts);
+        $this->getEntityManager()->flush();
+        return $posts;
+    }
 }

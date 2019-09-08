@@ -12,11 +12,11 @@
         <div class="form-inline border-dark col-md-12 mb-3">
             <div class="card-footer bg-transparent col-md-9">Objavio/la {{ user }} @ {{ date }}</div>
             <div class="form-inline col-md-3">
-                <button class="btn col-md-6 btn-outline-success">
+                <button class="btn col-md-6 btn-outline-success" onclick="useful({{ post_id }})">
                     <i class="far fa-thumbs-up"></i>
                     <p class="m-0 p-0 likes-text" data-post_id="{{ post_id }}">{{ likes }} korisno</p>
                 </button>
-                <button class="btn col-md-6 btn-outline-danger">
+                <button class="btn col-md-6 btn-outline-danger" onclick="notUseful({{ post_id }})">
                     <i class="far fa-thumbs-down"></i>
                     <p class="m-0 p-0 likes-text" data-post_id="{{ post_id }}">{{ dislikes }} nije korisno</p>
                 </button>
@@ -24,3 +24,43 @@
         </div>
     </div>
 </div>
+
+<script>
+    function useful(post_id) {
+        let xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                let response = JSON.parse(xhr.responseText);
+                if(response.code === 403){
+                    alert("Već ste glasali na ovoj objavi");
+                } else {
+                    location.reload();
+                }
+            }
+        };
+        xhr.open("POST", "{{ url('user.post.useful') }}", true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(JSON.stringify({
+            post_id: post_id
+        }));
+    }
+
+    function notUseful(post_id) {
+        let xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                let response = JSON.parse(xhr.responseText);
+                if(response.code === 403){
+                    alert("Već ste glasali na ovoj objavi");
+                } else {
+                    location.reload();
+                }
+            }
+        };
+        xhr.open("POST", "{{ url('user.post.notUseful') }}", true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(JSON.stringify({
+            post_id: post_id
+        }));
+    }
+</script>

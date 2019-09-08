@@ -4,8 +4,11 @@
 namespace App\Controller;
 
 use App\Entity\Posts;
+use App\Entity\PostsLikesDislikes;
 use App\Entity\PostTypes;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -66,5 +69,75 @@ class UserController extends AbstractController
             'posts' => $posts,
             'file' => true
         ]);
+    }
+
+    /**
+     * @param Request $request
+     * @Route(path="/useful", name="user.post.useful")
+     * @return Response
+     */
+    public function useful(Request $request)
+    {
+        $postId = json_decode($request->getContent())->post_id;
+        $post = $this->getDoctrine()->getRepository(Posts::class)->findOneBy([
+            'id' => $postId
+        ]);
+        $likesDislikes = $post->getLikesDislikes();
+        if (!$likesDislikes) {
+            $likesDislikes = new PostsLikesDislikes();
+            $likes = 0;
+            $dislikes = 0;
+        } else {
+            $likes = $likesDislikes->getLikes();
+            $dislikes = $likesDislikes->getDislikes();
+        }
+
+        if (!$likesDislikes->getUsers()->contains($this->getUser())) {
+            $likesDislikes->addUser($this->getUser());
+            $likesDislikes->setLikes($likes + 1);
+        } else {
+            return new JsonResponse([
+                'code' => 403
+            ]);
+        }
+        $likesDislikes->setDislikes($dislikes);
+        $post->setLikesDislikes($likesDislikes);
+        $this->getDoctrine()->getRepository(Posts::class)->savePost($post);
+        return new Response();
+    }
+
+    /**
+     * @param Request $request
+     * @Route(path="/notUseful", name="user.post.notUseful")
+     * @return Response
+     */
+    public function notUseful(Request $request)
+    {
+        $postId = json_decode($request->getContent())->post_id;
+        $post = $this->getDoctrine()->getRepository(Posts::class)->findOneBy([
+            'id' => $postId
+        ]);
+        $likesDislikes = $post->getLikesDislikes();
+        if (!$likesDislikes) {
+            $likesDislikes = new PostsLikesDislikes();
+            $likes = 0;
+            $dislikes = 0;
+        } else {
+            $likes = $likesDislikes->getLikes();
+            $dislikes = $likesDislikes->getDislikes();
+        }
+
+        if (!$likesDislikes->getUsers()->contains($this->getUser())) {
+            $likesDislikes->addUser($this->getUser());
+            $likesDislikes->setDislikes($dislikes + 1);
+        } else {
+            return new JsonResponse([
+                'code' => 403
+            ]);
+        }
+        $likesDislikes->setLikes($likes);
+        $post->setLikesDislikes($likesDislikes);
+        $this->getDoctrine()->getRepository(Posts::class)->savePost($post);
+        return new Response();
     }
 }
