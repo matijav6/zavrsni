@@ -6,6 +6,7 @@ namespace App\Controller;
 use App\Entity\Posts;
 use App\Entity\PostsLikesDislikes;
 use App\Entity\PostTypes;
+use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,12 +24,7 @@ class UserController extends AbstractController
      */
     public function getNews()
     {
-        $type = $this->getDoctrine()->getRepository(PostTypes::class)->findOneBy([
-            'name' => "Novosti"
-        ]);
-        $posts = $this->getDoctrine()->getRepository(Posts::class)->findBy([
-            'type' => $type
-        ]);
+        $posts = $this->getDoctrine()->getRepository(User::class)->getPostsForUser($this->getUser(), 'Novosti');
         return $this->render('user/dashboard.html.twig', [
             'posts' => $posts,
             'file' => false
@@ -103,7 +99,9 @@ class UserController extends AbstractController
         $likesDislikes->setDislikes($dislikes);
         $post->setLikesDislikes($likesDislikes);
         $this->getDoctrine()->getRepository(Posts::class)->savePost($post);
-        return new Response();
+        return new JsonResponse([
+            'code' => 200
+        ]);
     }
 
     /**
@@ -138,6 +136,8 @@ class UserController extends AbstractController
         $likesDislikes->setLikes($likes);
         $post->setLikesDislikes($likesDislikes);
         $this->getDoctrine()->getRepository(Posts::class)->savePost($post);
-        return new Response();
+        return new JsonResponse([
+            'code' => 200
+        ]);
     }
 }

@@ -6,7 +6,7 @@
 {% endblock %}
 {% block body %}
     {% for post in posts %}
-        {% set vars = {'header': post.course.aka, 'title': post.course.name, 'text': post.data, 'user': post.user.firstName ~ post.user.lastName, 'date': post.dateUpdated|date('d.m.Y'), 'post_id': post.id, 'likes': post.likesDislikes.likes|default(0), 'dislikes': post.likesDislikes.dislikes|default(0), 'file': file} %}
+        {% set vars = {'header': post.course_aka, 'title': post.course_name, 'text': post.post_data, 'user': post.user_name ~ post.user_lastname, 'date': post.date_updated|date('d.m.Y'), 'post_id': post.post_id, 'likes': post.post_likes|default(0), 'dislikes': post.post_dislikes|default(0), 'file': file} %}
         {% include 'user/card.html.twig' with vars %}
     {% endfor %}
 {% endblock %}
