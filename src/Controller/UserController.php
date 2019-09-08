@@ -37,12 +37,7 @@ class UserController extends AbstractController
      */
     public function getInstructions()
     {
-        $type = $this->getDoctrine()->getRepository(PostTypes::class)->findOneBy([
-            'name' => "Instrukcije"
-        ]);
-        $posts = $this->getDoctrine()->getRepository(Posts::class)->findBy([
-            'type' => $type
-        ]);
+        $posts = $this->getDoctrine()->getRepository(User::class)->getPostsForUser($this->getUser(), 'Novosti');
         return $this->render('user/dashboard.html.twig', [
             'posts' => $posts,
             'file' => false
@@ -55,12 +50,7 @@ class UserController extends AbstractController
      */
     public function getMaterials()
     {
-        $type = $this->getDoctrine()->getRepository(PostTypes::class)->findOneBy([
-            'name' => "Materijali"
-        ]);
-        $posts = $this->getDoctrine()->getRepository(Posts::class)->findBy([
-            'type' => $type
-        ]);
+        $posts = $this->getDoctrine()->getRepository(User::class)->getPostsForUser($this->getUser(), 'Novosti');
         return $this->render('user/dashboard.html.twig', [
             'posts' => $posts,
             'file' => true
