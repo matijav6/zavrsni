@@ -41,7 +41,8 @@ class UserMaterialsPublishType extends AbstractType
             ])
             ->add('course', EntityType::class, [
                 'class' => Courses::class,
-                'choice_label' => 'name'
+                'choice_label' => 'name',
+                'choices' => $options['data']->getUser()->getCourses()
             ]);
     }
 

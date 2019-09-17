@@ -46,6 +46,7 @@ class UserMaterialsController extends AbstractController
     public function new(Request $request): Response
     {
         $post = new Posts();
+        $post->setUser($this->getUser());
         $form = $this->createForm(UserMaterialsPublishType::class, $post);
         $form->handleRequest($request);
 
