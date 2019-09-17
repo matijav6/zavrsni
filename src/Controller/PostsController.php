@@ -31,6 +31,7 @@ class PostsController extends AbstractController
      * @param Request $request
      * @return Response
      * @Route("/new", name="posts_new", methods={"GET","POST"})
+     * @throws \Exception
      */
     public function new(Request $request): Response
     {
@@ -39,6 +40,8 @@ class PostsController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $date = new \DateTime();
+            $post->setDateUpdated($date);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($post);
             $entityManager->flush();
