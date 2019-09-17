@@ -20,11 +20,16 @@ class CoursesRepository extends ServiceEntityRepository
         parent::__construct($registry, Courses::class);
     }
 
-    public function getRestCourses($user)
+    public function getRestCourses(User $user)
     {
+        $userId = $user->getId();
         $conn = $this->getEntityManager()
             ->getConnection();
-        $sql = "SELECT courses.id, courses.name from courses left outer join user_courses uc on courses.id = uc.courses_id where uc.user_id is null or uc.user_id <> 11;";
+        $sql = "SELECT courses.id, courses.name 
+                from courses 
+                left outer join user_courses uc 
+                on courses.id = uc.courses_id 
+                where uc.user_id is null or uc.user_id <> $userId";
         $stmt = $conn->prepare($sql);
         $stmt->execute();
         $results = $stmt->fetchAll();
