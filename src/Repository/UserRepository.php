@@ -46,7 +46,8 @@ class UserRepository extends ServiceEntityRepository
                 join posts p on courses.id = p.course_id
                 left join posts_likes_dislikes pld on p.id = pld.post_id
                 join post_types pt on p.type_id = pt.id
-                where u.id = $userId and pt.name = '$type'";
+                where u.id = $userId and pt.name = '$type'
+                ORDER BY date_updated DESC";
         $conn = $this->getEntityManager()
             ->getConnection();
         $stmt = $conn->prepare($sql);
